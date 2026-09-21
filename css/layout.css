@@ -253,6 +253,46 @@ html, body {
 }
 
 /* ==========================================================================
+   SHORT-HEIGHT LANDSCAPE (Mobile Phones in Landscape)
+   ========================================================================== */
+@media (max-height: 480px) and (orientation: landscape) {
+  #topbar {
+    padding: 6px 12px;
+    gap: 6px;
+  }
+  #topbar .ttl {
+    font-size: 17px;
+  }
+  .icon-btn {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    min-height: 38px;
+    font-size: 17px;
+  }
+  .starchip {
+    padding: 5px 10px;
+    font-size: 13.5px;
+  }
+  #tabbar {
+    width: 76px;
+    padding: 6px 4px;
+    gap: 4px;
+  }
+  #tabbar button {
+    padding: 4px 2px;
+    font-size: 10px;
+    min-height: 40px;
+  }
+  #tabbar button i {
+    font-size: 18px;
+  }
+  #view {
+    padding: 10px 14px 18px;
+  }
+}
+
+/* ==========================================================================
    DESKTOP & LARGE DISPLAYS (>1200px)
    ========================================================================== */
 @media (min-width: 1280px) and (min-height: 720px) {
