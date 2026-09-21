@@ -19,9 +19,10 @@
 
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:9px;
-  min-height:var(--tap);padding:14px 22px;border-radius:var(--r-lg);
+  min-height:48px;min-width:48px;padding:12px 20px;border-radius:var(--r-lg);
   background:var(--surface);font-weight:900;font-size:17px;
-  box-shadow:0 7px 0 var(--press); transition:transform .12s ease,box-shadow .12s ease,filter .15s;
+  box-shadow:0 6px 0 var(--press); transition:transform .12s ease,box-shadow .12s ease,filter .15s;
+  touch-action:manipulation;
 }
 .btn:active{transform:translateY(5px);box-shadow:0 2px 0 var(--press)}
 .btn.primary{background:var(--coral);color:#fff}
