@@ -161,13 +161,13 @@ Routes.dictation = function (p) {
     }
   }
 
-  /* Audio Dictation triggers */
+  /* Audio Dictation triggers — very slow and clear */
   function playDictation(slow) {
     FX.bounce(speakBtn);
     if (slow) {
-      AudioService.say(targetWord.split("").join(" . "), { rate: 0.5, pitch: 1.1 });
+      AudioService.say(targetWord.split("").join(" . . "), { rate: 0.40, pitch: 1.05 });
     } else {
-      AudioService.say("Spell the word: " + targetWord + ". " + targetWord, { rate: 0.75 });
+      AudioService.say(targetWord + ". . " + targetWord, { rate: 0.55, pitch: 1.05 });
     }
   }
 
