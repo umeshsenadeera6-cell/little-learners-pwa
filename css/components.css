@@ -234,8 +234,8 @@
 #modal .gate-keys{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
 #modal .gate-keys .btn{min-height:58px;font-size:22px;font-family:"Baloo 2"}
 
-/* ---------- Landscape Responsive Enhancements ---------- */
-@media (min-width: 600px) {
+/* ---------- Dual Orientation Responsive Enhancements ---------- */
+@media (min-width: 720px) or (orientation: landscape) {
   .cat-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
   .tile-grid { grid-template-columns: repeat(6, 1fr); gap: 14px; }
   .tile-grid.two { grid-template-columns: repeat(3, 1fr); }
@@ -310,4 +310,3 @@
   color: var(--ink-soft);
   margin: 0;
 }
-

@@ -1,4 +1,4 @@
-/* Little Learners — Fullscreen & Orientation Controller */
+/* Little Learners — Fullscreen & Dual Orientation Controller */
 
 export function isFullscreen() {
   return !!(
@@ -19,7 +19,6 @@ export function toggleFullscreen() {
     } else if (elem.msRequestFullscreen) {
       elem.msRequestFullscreen();
     }
-    lockOrientation();
   } else {
     if (document.exitFullscreen) {
       document.exitFullscreen().catch(function () {});
@@ -28,30 +27,6 @@ export function toggleFullscreen() {
     } else if (document.msExitFullscreen) {
       document.msExitFullscreen();
     }
-  }
-}
-
-export function lockOrientation() {
-  try {
-    if (screen.orientation && screen.orientation.lock) {
-      screen.orientation.lock("landscape").catch(function () {
-        /* Orientation locking unsupported or requires user gesture/standalone mode */
-      });
-    }
-  } catch (e) {}
-}
-
-export function checkOrientation() {
-  var prompt = document.getElementById("rotate-prompt");
-  if (!prompt) return;
-
-  var isPortrait = window.innerHeight > window.innerWidth && window.innerWidth < 768;
-  var isTouch = "ontouchend" in window || navigator.maxTouchPoints > 0;
-
-  if (isPortrait && isTouch) {
-    prompt.hidden = false;
-  } else {
-    prompt.hidden = true;
   }
 }
 
@@ -74,13 +49,7 @@ export function initFullscreen() {
   document.addEventListener("fullscreenchange", updateBtn);
   document.addEventListener("webkitfullscreenchange", updateBtn);
 
-  window.addEventListener("resize", checkOrientation);
-  window.addEventListener("orientationchange", checkOrientation);
-
-  /* Attempt locking on first user touch / click */
-  document.addEventListener("pointerdown", function () {
-    lockOrientation();
-  }, { once: true });
-
-  checkOrientation();
+  /* Ensure prompt stays hidden as both orientations are natively supported */
+  var prompt = document.getElementById("rotate-prompt");
+  if (prompt) prompt.hidden = true;
 }
