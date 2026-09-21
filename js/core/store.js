@@ -15,6 +15,11 @@ export const Store = {
       seen:{abc:{},numbers:{},colours:{},animals:{},shapes:{},words:{}},
       quiz:{correct:0, wrong:0, byModule:{}},
       games:{},
+      customDictation:[
+        {word:"star", emoji:"⭐", hint:"Shines in the sky"},
+        {word:"apple", emoji:"🍎", hint:"Sweet red fruit"},
+        {word:"happy", emoji:"😊", hint:"Feeling joyful"}
+      ],
       settings:{sound:true, music:false, animation:true, language:"en", theme:"system"},
       lastVisit:Date.now()
     };
@@ -28,6 +33,7 @@ export const Store = {
         d.stars = p.stars||0; d.seconds = p.seconds||0;
         d.badges = Array.isArray(p.badges)?p.badges:[];
         d.games = p.games||{};
+        if(Array.isArray(p.customDictation)) d.customDictation = p.customDictation;
         if(p.seen) for(var k in d.seen){ d.seen[k] = p.seen[k]||{}; }
         if(p.quiz) d.quiz = {correct:p.quiz.correct||0, wrong:p.quiz.wrong||0, byModule:p.quiz.byModule||{}};
         if(p.settings) for(var q in d.settings){ if(q in p.settings) d.settings[q]=p.settings[q]; }
@@ -37,6 +43,37 @@ export const Store = {
   },
   save: function(){ try{ localStorage.setItem(KEY, JSON.stringify(this.s)); }catch(e){} },
   reset: function(){ this.s = this.fresh(); this.save(); },
+  addCustomWord: function(word, emoji, hint){
+    if(!word) return false;
+    var clean = word.trim().toLowerCase().replace(/[^a-z]/g, "");
+    if(!clean) return false;
+    if(!this.s.customDictation) this.s.customDictation = [];
+    this.s.customDictation.push({word:clean, emoji:emoji||"✍️", hint:hint||""});
+    this.save(); this.notify(); return true;
+  },
+  removeCustomWord: function(index){
+    if(this.s.customDictation && index >= 0 && index < this.s.customDictation.length){
+      this.s.customDictation.splice(index, 1);
+      this.save(); this.notify(); return true;
+    }
+    return false;
+  },
+  importCustomWords: function(rawText){
+    if(!rawText) return 0;
+    var parts = rawText.split(/[\n,;]+/);
+    var added = 0;
+    var self = this;
+    parts.forEach(function(p){
+      var w = p.trim().toLowerCase().replace(/[^a-z]/g, "");
+      if(w && w.length >= 2){
+        if(!self.s.customDictation) self.s.customDictation = [];
+        self.s.customDictation.push({word:w, emoji:"✍️", hint:""});
+        added++;
+      }
+    });
+    if(added > 0){ this.save(); this.notify(); }
+    return added;
+  },
   markSeen: function(mod, id){
     if(!this.s.seen[mod]) this.s.seen[mod] = {};
     if(!this.s.seen[mod][id]){ this.s.seen[mod][id] = 1; this.save(); Store.notify(); return true; }

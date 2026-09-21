@@ -83,6 +83,89 @@ Routes.parent = function(){
   });
   wrap.appendChild(gcard);
 
+  /* Parent Dictation Word Upload & Manager */
+  wrap.appendChild(h('<h2 class="section-title">✍️ Parent Dictation Word Upload</h2>'));
+  var dcard = h('<div class="card">' +
+    '<div style="font-weight:900;font-size:15px;margin-bottom:12px">Upload or type custom dictation words for your child to practice:</div>' +
+    '<div style="display:flex;gap:8px;margin-bottom:12px">' +
+      '<input id="ll-parent-word-input" type="text" placeholder="Type words separated by commas (e.g. cat, sun, star, happy)" style="flex:1;padding:12px 16px;border-radius:14px;border:3px solid var(--line);font:inherit;font-weight:800;font-size:15px;background:var(--surface2);color:var(--ink)" />' +
+      '<button id="ll-parent-word-add" class="btn primary" style="padding:10px 18px;font-size:15px">➕ Add</button>' +
+    '</div>' +
+    '<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap">' +
+      '<label class="btn ghost" style="padding:10px 16px;font-size:14px;cursor:pointer">' +
+        '📂 Upload .txt or .json File' +
+        '<input id="ll-parent-file-upload" type="file" accept=".txt,.json" style="display:none" />' +
+      '</label>' +
+      '<button id="ll-parent-preset-sight" class="btn ghost" style="padding:10px 16px;font-size:14px">📝 Sight Words Preset</button>' +
+    '</div>' +
+    '<div id="ll-parent-word-list" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"></div>' +
+  '</div>');
+  wrap.appendChild(dcard);
+
+  var inputEl = dcard.querySelector("#ll-parent-word-input");
+  var addBtn = dcard.querySelector("#ll-parent-word-add");
+  var fileInput = dcard.querySelector("#ll-parent-file-upload");
+  var presetSightBtn = dcard.querySelector("#ll-parent-preset-sight");
+  var listHost = dcard.querySelector("#ll-parent-word-list");
+
+  function renderWordList() {
+    listHost.innerHTML = "";
+    var custom = Store.s.customDictation || [];
+    if (custom.length === 0) {
+      listHost.appendChild(h('<div style="font-size:13.5px;color:var(--ink-soft);font-weight:800">No custom words added yet. Type words above or upload a text file.</div>'));
+      return;
+    }
+    custom.forEach(function (wItem, idx) {
+      var chip = h('<div class="chip" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;min-width:auto;height:auto;border-radius:999px;font-size:14px;background:var(--surface2)">' +
+        '<span>' + esc(wItem.word.toUpperCase()) + '</span>' +
+        '<button class="del-word" style="font-size:14px;color:var(--warn);padding:2px 4px;border-radius:50%">✖</button>' +
+      '</div>');
+      chip.querySelector(".del-word").addEventListener("click", function () {
+        Store.removeCustomWord(idx);
+        renderWordList();
+        UI.toast("Word removed");
+      });
+      listHost.appendChild(chip);
+    });
+  }
+
+  addBtn.addEventListener("click", function () {
+    var text = inputEl.value;
+    if (text) {
+      var added = Store.importCustomWords(text);
+      if (added > 0) {
+        inputEl.value = "";
+        renderWordList();
+        UI.toast("🎉 Added " + added + " word" + (added > 1 ? "s" : ""));
+      } else {
+        UI.toast("Please enter valid letter words");
+      }
+    }
+  });
+
+  fileInput.addEventListener("change", function (e) {
+    var file = e.target.files && e.target.files[0];
+    if (file) {
+      var reader = new FileReader();
+      reader.onload = function (evt) {
+        var content = evt.target.result;
+        var count = Store.importCustomWords(content);
+        renderWordList();
+        UI.toast("🎉 Uploaded " + count + " words from " + file.name);
+      };
+      reader.readAsText(file);
+    }
+  });
+
+  presetSightBtn.addEventListener("click", function () {
+    var sightText = "the, and, you, can, see, big, sun, play, run, jump, star, happy, book, cat, dog";
+    var count = Store.importCustomWords(sightText);
+    renderWordList();
+    UI.toast("Loaded Sight Words preset (" + count + " words)");
+  });
+
+  renderWordList();
+
   wrap.appendChild(h('<h2 class="section-title">🔒 Safety & privacy</h2>'));
   wrap.appendChild(h('<div class="card"><div style="font-size:14.5px;font-weight:800;line-height:1.55">'+
     '✅ No chat, profiles or messaging<br>'+
