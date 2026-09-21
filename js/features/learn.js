@@ -10,7 +10,7 @@ import { Rewards } from "../core/rewards.js";
 Routes.learn = function(){
   UI.setTitle("📚 Learn", "Pick a lesson");
   var wrap = h('<div></div>');
-  wrap.appendChild(h('<div class="hero-banner" style="background:linear-gradient(135deg,var(--sky),var(--grape))"><h2>Six ways to learn</h2><p>Letters, numbers, colours, animals, shapes and words.</p><span class="big floaty">🎓</span></div>'));
+  wrap.appendChild(h('<div class="hero-banner" style="background:linear-gradient(135deg,var(--sky),var(--grape))"><h2>Seven ways to learn</h2><p>Letters, numbers, tracing, colours, animals, shapes and words.</p><span class="big floaty">🎓</span></div>'));
   var grid = h('<div class="cat-grid" style="margin-top:16px"></div>');
   DATA.modules.forEach(function(m){
     var pct = Store.pct(m.id);
@@ -24,6 +24,17 @@ Routes.learn = function(){
     grid.appendChild(c);
   });
   wrap.appendChild(grid);
+
+  wrap.appendChild(h('<h2 class="section-title">✍️ Tracing Studio</h2>'));
+  var traceBanner = h(
+    '<button class="row-item" style="background:linear-gradient(135deg,#FFF7E6,#FFE8B5);border:2px solid var(--clay)">' +
+      '<span class="e">✏️</span>' +
+      '<span class="t" style="font-weight:900">Trace & Learn Studio</span>' +
+      '<span class="m">Start Tracing ›</span>' +
+    '</button>'
+  );
+  traceBanner.addEventListener("click", function(){ AudioService.effect("tap"); UI.go("tracing"); });
+  wrap.appendChild(traceBanner);
 
   wrap.appendChild(h('<h2 class="section-title">🧠 Quick Quizzes</h2>'));
   var quizzes = [
