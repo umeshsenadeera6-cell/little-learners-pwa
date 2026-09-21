@@ -12,8 +12,9 @@
 <meta name="theme-color" content="#241B3A" media="(prefers-color-scheme: dark)">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Little Learners">
+<meta name="screen-orientation" content="landscape">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
 <link rel="icon" href="./icons/icon-192.png" sizes="192x192">
 
@@ -39,6 +40,7 @@
       <button class="icon-btn" id="btn-back" hidden aria-label="Go back">⬅️</button>
       <h1 class="ttl display"><span id="ttl-main">🌈 Little Learners</span><span class="sub" id="ttl-sub">Learn • Play • Grow</span></h1>
       <div class="starchip" id="starchip" title="Stars earned">⭐ <span id="starcount">0</span></div>
+      <button class="icon-btn" id="btn-fullscreen" aria-label="Toggle Fullscreen" title="Full Screen">⛶</button>
       <button class="icon-btn" id="btn-settings" aria-label="Settings">⚙️</button>
     </header>
     <main id="view" tabindex="-1"></main>
@@ -49,6 +51,13 @@
       <button data-tab="progress"><i>⭐</i>Progress</button>
     </nav>
     <div id="toast" role="status" aria-live="polite"></div>
+  </div>
+</div>
+<div id="rotate-prompt" hidden aria-live="polite">
+  <div class="rotate-card">
+    <div class="rotate-icon">🔄📱</div>
+    <h2>Please Rotate Your Device</h2>
+    <p>Little Learners is designed to be played sideways in landscape mode!</p>
   </div>
 </div>
 <div id="fx" aria-hidden="true"></div>

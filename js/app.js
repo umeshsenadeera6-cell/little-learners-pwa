@@ -17,14 +17,15 @@ import "./features/words.js";
 import "./features/quiz.js";
 import "./features/games.js";
 import "./features/progress.js";
-import "./features/parent.js";
 import { applySettings } from "./features/settings.js";
+import { initFullscreen } from "./core/fullscreen.js";
 
 /* ------------------------------ BOOT ---------------------------------- */
 
 (function boot(){
   Store.load();
   applySettings();
+  initFullscreen();
   UI.init();
   UI.selectTab("home");
 
