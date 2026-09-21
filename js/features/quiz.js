@@ -12,15 +12,35 @@ import { shapeSVG } from "../widgets/shape-svg.js";
 export const QuizBank = {
   abc: { title:"Letter Quiz", emoji:"🔤", colour:"var(--sun)",
     make: function(){
+      var qType = pick(["startWord", "capToSimple", "simpleToCap"]);
       var item = pick(DATA.alphabet);
       var others = sample(DATA.alphabet.filter(function(x){return x.id!==item.id;}), 2);
-      var opts = shuffle([item].concat(others)).map(function(o){
-        return { html:'<span class="letterform">'+o.letter+'</span>', correct:o.id===item.id, say:o.letter };
-      });
-      return { text:"Which letter starts the word "+item.word+"?",
-               prompt:'<span class="qprompt">'+item.emoji+'</span>',
-               say:"Which letter starts the word "+item.word+"?",
-               layout:"three", opts:opts };
+
+      if (qType === "capToSimple") {
+        var opts = shuffle([item].concat(others)).map(function(o){
+          return { html:'<span class="letterform" style="color:#2B86C5">'+o.lowercase+'</span>', correct:o.id===item.id, say:"Simple " + o.lowercase };
+        });
+        return { text: "Find the simple letter for Capital " + item.letter,
+                 prompt: '<span class="qprompt letterform" style="color:var(--coral)">' + item.letter + '</span>',
+                 say: "Find the simple letter for Capital " + item.letter,
+                 layout: "three", opts: opts };
+      } else if (qType === "simpleToCap") {
+        var opts = shuffle([item].concat(others)).map(function(o){
+          return { html:'<span class="letterform" style="color:var(--coral)">'+o.letter+'</span>', correct:o.id===item.id, say:"Capital " + o.letter };
+        });
+        return { text: "Find the Capital letter for simple " + item.lowercase,
+                 prompt: '<span class="qprompt letterform" style="color:#2B86C5">' + item.lowercase + '</span>',
+                 say: "Find the Capital letter for simple " + item.lowercase,
+                 layout: "three", opts: opts };
+      } else {
+        var opts = shuffle([item].concat(others)).map(function(o){
+          return { html:'<span class="letterform">'+o.letter+' <small style="font-size:0.6em;opacity:0.75">'+o.lowercase+'</small></span>', correct:o.id===item.id, say:o.letter };
+        });
+        return { text: "Which letter starts the word " + item.word + "?",
+                 prompt: '<span class="qprompt">' + item.emoji + '</span>',
+                 say: "Which letter starts the word " + item.word + "?",
+                 layout: "three", opts: opts };
+      }
     }},
   numbers: { title:"Number Quiz", emoji:"🔢", colour:"var(--sky)",
     make: function(){

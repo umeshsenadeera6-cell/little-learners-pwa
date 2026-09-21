@@ -9,6 +9,7 @@ import { Rewards } from "../core/rewards.js";
 /* ------------------------------- GAMES --------------------------------- */
 export const GAMES = [
   {id:"match",  route:"game_match",  emoji:"🧩", name:"Match It",       hint:"Animal → name",     bg:"linear-gradient(140deg,#FFD166,#FF9E4C)"},
+  {id:"cases",  route:"game_cases",  emoji:"🔠", name:"Capital & Simple",hint:"Match A → a",       bg:"linear-gradient(140deg,#FF8E72,#FF5A5F)"},
   {id:"colour", route:"game_colour", emoji:"🎨", name:"Find the Colour",hint:"Tap the right one", bg:"linear-gradient(140deg,#FFA8CF,#FF7FB6)"},
   {id:"count",  route:"game_count",  emoji:"🔢", name:"Count Them",     hint:"How many?",         bg:"linear-gradient(140deg,#8ED8FF,#45B6F5)"},
   {id:"letter", route:"game_letter", emoji:"🔤", name:"Find the Letter",hint:"Spot the letter",   bg:"linear-gradient(140deg,#A8ECC0,#5CD292)"},
@@ -16,7 +17,7 @@ export const GAMES = [
 ];
 
 Routes.games = function(){
-  UI.setTitle("🎮 Let's Play!", "Five fun games");
+  UI.setTitle("🎮 Let's Play!", "Fun games for little learners");
   var wrap = h('<div></div>');
   wrap.appendChild(h('<div class="hero-banner" style="background:linear-gradient(135deg,var(--grape),var(--bubble))"><h2>Time to play</h2><p>Every game gives you stars. No hurry — try as often as you like.</p><span class="big floaty">🎈</span></div>'));
   var grid = h('<div class="cat-grid" style="margin-top:16px"></div>');
@@ -271,3 +272,59 @@ Routes.game_memory = function(){
   body.appendChild(grid);
   return wrap;
 };
+
+/* Game 6 — Capital & Simple Letter Match */
+Routes.game_cases = function(){
+  var wrap = gameShell("🔠 Capital & Simple", "Match A → a", "Match each Capital letter with its Simple letter");
+  var card = wrap.querySelector("#ll-gamecard");
+  card.querySelector("#ll-q").textContent = "Tap a Capital letter, then tap its Simple letter!";
+  var body = card.querySelector("#ll-body");
+  var fb = card.querySelector("#ll-fb");
+
+  var items = sample(DATA.alphabet, 4);
+  var left = shuffle(items), right = shuffle(items);
+  var sel = null, done = 0;
+
+  var grid = h('<div class="match-wrap" style="margin-top:16px"></div>');
+  var colL = h('<div class="match-col"></div>'), colR = h('<div class="match-col"></div>');
+  grid.appendChild(colL); grid.appendChild(colR); body.appendChild(grid);
+
+  left.forEach(function(item){
+    var b = h('<button class="mitem letterform" aria-pressed="false" style="color:var(--coral);font-size:36px;font-weight:800">'+item.letter+'</button>');
+    b.addEventListener("click", function(){
+      if(b.classList.contains("done")) return;
+      Array.prototype.forEach.call(colL.children, function(x){ x.setAttribute("aria-pressed","false"); });
+      b.setAttribute("aria-pressed","true"); sel = {item:item, el:b};
+      AudioService.say("Capital " + item.letter, {rate:0.75});
+    });
+    colL.appendChild(b);
+  });
+
+  right.forEach(function(item){
+    var b = h('<button class="mitem letterform" style="color:#2B86C5;font-size:36px;font-weight:800">'+item.lowercase+'</button>');
+    b.addEventListener("click", function(){
+      if(b.classList.contains("done")) return;
+      AudioService.say("Simple " + item.lowercase, {rate:0.75});
+      if(!sel){ fb.className="feedback try"; fb.textContent="Tap a Capital letter first 😊"; return; }
+      if(sel.item.id === item.id){
+        sel.el.classList.add("done"); b.classList.add("done");
+        sel.el.setAttribute("aria-pressed","false");
+        fb.className="feedback good"; fb.textContent="🎉 Great job! "+item.letter+" matches "+item.lowercase;
+        Rewards.star(1, b); sel=null; done++;
+        if(done===items.length){
+          setTimeout(function(){
+            gameFinish(wrap, "cases", "Capital & Simple Master!", function(){ UI.setParams({r:Math.random()}); });
+          }, 600);
+        }
+      } else {
+        b.classList.add("miss");
+        fb.className="feedback try"; fb.textContent="Try Again! 😊";
+        AudioService.effect("wrong");
+        setTimeout(function(){ b.classList.remove("miss"); }, 500);
+      }
+    });
+    colR.appendChild(b);
+  });
+  return wrap;
+};
+
