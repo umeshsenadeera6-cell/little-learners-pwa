@@ -161,13 +161,13 @@ Routes.dictation = function (p) {
     }
   }
 
-  /* Audio Dictation triggers — very slow and clear */
+  /* Audio Dictation triggers — speak word once slowly and clearly */
   function playDictation(slow) {
     FX.bounce(speakBtn);
     if (slow) {
       AudioService.say(targetWord.split("").join(" . . "), { rate: 0.40, pitch: 1.05 });
     } else {
-      AudioService.say(targetWord + ". . " + targetWord, { rate: 0.55, pitch: 1.05 });
+      AudioService.say(targetWord, { rate: 0.55, pitch: 1.05 });
     }
   }
 
