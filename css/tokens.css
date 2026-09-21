@@ -1,0 +1,38 @@
+/* Little Learners — design tokens (light + dark) */
+:root{
+  --bg:#FFF2E2; --bg2:#FFE3C9;
+  --surface:#FFFFFF; --surface2:#FFF8EF;
+  --ink:#43305A; --ink-soft:#8B769F; --line:#F2DFC9;
+  --coral:#FF7A59; --sun:#FFC43C; --sky:#45C2F0; --leaf:#5CD292;
+  --grape:#A97BEA; --bubble:#FF8FC5; --mint:#4FD8C4; --clay:#E8834A;
+  --good:#3FBF74; --warn:#FFB020;
+  --press:rgba(67,48,90,.18);
+  --r-xl:34px; --r-lg:26px; --r-md:18px; --r-sm:12px;
+  --shadow-card:0 10px 0 var(--press), 0 18px 34px rgba(67,48,90,.10);
+  --shadow-soft:0 6px 20px rgba(67,48,90,.10);
+  --tap:64px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#241B3A; --bg2:#1A1330;
+    --surface:#352A55; --surface2:#3F3364;
+    --ink:#FFF1E2; --ink-soft:#C3B0E4; --line:#4B3D72;
+    --coral:#FF8E70; --sun:#FFD25E; --sky:#63CFF7; --leaf:#6FE0A4;
+    --grape:#BE97F5; --bubble:#FF9FCF; --mint:#63E4D2; --clay:#F0995F;
+    --good:#58D68D; --warn:#FFC24D;
+    --press:rgba(0,0,0,.38);
+    --shadow-card:0 10px 0 var(--press), 0 18px 34px rgba(0,0,0,.28);
+    --shadow-soft:0 6px 20px rgba(0,0,0,.26);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#241B3A; --bg2:#1A1330;
+  --surface:#352A55; --surface2:#3F3364;
+  --ink:#FFF1E2; --ink-soft:#C3B0E4; --line:#4B3D72;
+  --coral:#FF8E70; --sun:#FFD25E; --sky:#63CFF7; --leaf:#6FE0A4;
+  --grape:#BE97F5; --bubble:#FF9FCF; --mint:#63E4D2; --clay:#F0995F;
+  --good:#58D68D; --warn:#FFC24D;
+  --press:rgba(0,0,0,.38);
+  --shadow-card:0 10px 0 var(--press), 0 18px 34px rgba(0,0,0,.28);
+  --shadow-soft:0 6px 20px rgba(0,0,0,.26);
+}

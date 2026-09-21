@@ -1,0 +1,16 @@
+/* Little Learners — reset, typography, motion primitives */
+/* The frame handles its own safe-area insets (see layout.css). */
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Nunito", ui-rounded, "Segoe UI Rounded", system-ui, sans-serif;
+  font-weight:700; -webkit-tap-highlight-color:transparent;
+  overflow:hidden;
+}
+h1,h2,h3,.display{font-family:"Baloo 2","Nunito",system-ui,sans-serif; font-weight:800; margin:0; text-wrap:balance}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+:focus-visible{outline:4px solid var(--sky); outline-offset:3px; border-radius:14px}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+body.no-anim *{animation:none !important;transition:none !important}

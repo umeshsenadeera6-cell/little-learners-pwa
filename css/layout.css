@@ -1,0 +1,54 @@
+/* Little Learners — app frame, top bar, scroll area, tab bar */
+/* ---------- app frame ---------- */
+#stage{height:100%; display:flex; align-items:center; justify-content:center;
+  background:
+    radial-gradient(900px 500px at 12% -10%, color-mix(in srgb,var(--sun) 40%,transparent), transparent 60%),
+    radial-gradient(800px 500px at 100% 0%, color-mix(in srgb,var(--sky) 35%,transparent), transparent 60%),
+    radial-gradient(700px 600px at 50% 120%, color-mix(in srgb,var(--bubble) 30%,transparent), transparent 60%),
+    var(--bg2);
+}
+#app{
+  width:100%; height:100%; max-width:560px; background:var(--bg);
+  display:flex; flex-direction:column; position:relative; overflow:hidden;
+}
+@media (min-width:700px) and (min-height:720px){
+  #app{height:min(920px,94%); border-radius:44px; box-shadow:0 30px 70px rgba(40,20,60,.28); border:8px solid rgba(255,255,255,.5)}
+  :root[data-theme="dark"] #app, :root:not([data-theme="light"]) #app{border-color:rgba(255,255,255,.12)}
+}
+
+#topbar{
+  flex:0 0 auto; display:flex; align-items:center; gap:10px;
+  padding:14px 16px 10px; padding-top:calc(14px + env(safe-area-inset-top,0px));
+  background:var(--bg); position:relative; z-index:5;
+}
+#topbar .ttl{font-size:clamp(20px,5.4vw,26px); line-height:1.1; flex:1 1 auto; min-width:0}
+#topbar .sub{display:block;font-family:"Nunito";font-size:12.5px;font-weight:800;color:var(--ink-soft);letter-spacing:.06em;text-transform:uppercase}
+.icon-btn{
+  width:46px;height:46px;flex:0 0 auto;border-radius:16px;background:var(--surface);
+  display:grid;place-items:center;font-size:21px;box-shadow:0 4px 0 var(--press);
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.icon-btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--press)}
+.starchip{
+  flex:0 0 auto;display:flex;align-items:center;gap:6px;background:var(--sun);color:#4A3200;
+  padding:9px 14px;border-radius:999px;font-weight:900;font-size:16px;box-shadow:0 4px 0 rgba(0,0,0,.14);
+  font-variant-numeric:tabular-nums;
+}
+:root[data-theme="dark"] .starchip,:root:not([data-theme="light"]) .starchip{color:#2A1C00}
+
+#view{flex:1 1 auto; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; padding:4px 16px 26px; scroll-behavior:smooth}
+#view::-webkit-scrollbar{width:0}
+
+#tabbar{
+  flex:0 0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:4px;
+  background:var(--surface); border-top:3px solid var(--line);
+  padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));
+  box-shadow:0 -10px 30px rgba(67,48,90,.08);
+}
+#tabbar button{
+  border-radius:18px;padding:8px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:3px;
+  font-size:11px;font-weight:900;color:var(--ink-soft);letter-spacing:.02em;transition:background .15s,color .15s,transform .15s;
+}
+#tabbar button i{font-style:normal;font-size:24px;line-height:1;transition:transform .2s}
+#tabbar button[aria-current="page"]{background:color-mix(in srgb,var(--sky) 22%,transparent);color:var(--ink)}
+#tabbar button[aria-current="page"] i{transform:translateY(-3px) scale(1.12)}
