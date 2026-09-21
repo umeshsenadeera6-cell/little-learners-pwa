@@ -48,7 +48,14 @@ export const DICTATION_PRESETS = {
   }
 };
 
+var dictationTimer = null;
+
 Routes.dictation = function (p) {
+  if (dictationTimer) {
+    clearTimeout(dictationTimer);
+    dictationTimer = null;
+  }
+
   var catKey = p.cat || "sight";
   var mode = p.mode || "bubbles"; // "bubbles" or "keyboard"
   var index = p.index | 0;
@@ -103,11 +110,11 @@ Routes.dictation = function (p) {
 
   bBubbles.addEventListener("click", function () {
     AudioService.effect("tap");
-    UI.setParams({ cat: catKey, mode: "bubbles", index: index });
+    UI.setParams({ cat: catKey, mode: "bubbles", index: index, noAuto: true });
   });
   bKeyboard.addEventListener("click", function () {
     AudioService.effect("tap");
-    UI.setParams({ cat: catKey, mode: "keyboard", index: index });
+    UI.setParams({ cat: catKey, mode: "keyboard", index: index, noAuto: true });
   });
 
   modeRow.appendChild(bBubbles);
@@ -163,6 +170,7 @@ Routes.dictation = function (p) {
 
   /* Audio Dictation triggers — speak word once slowly and clearly */
   function playDictation(slow) {
+    if (UI.current() && UI.current().name !== "dictation") return;
     FX.bounce(speakBtn);
     if (slow) {
       AudioService.say(targetWord.split("").join(" . . "), { rate: 0.40, pitch: 1.05 });
@@ -188,7 +196,7 @@ Routes.dictation = function (p) {
       FX.confetti(60);
       Rewards.star(1, speakBtn);
       setTimeout(function () {
-        AudioService.say("Great job! " + targetWord + " is correct!", { rate: 0.8 });
+        AudioService.say("Great job!", { rate: 0.8 });
       }, 300);
 
       setTimeout(function () {
@@ -287,9 +295,11 @@ Routes.dictation = function (p) {
   renderSlots();
   renderInput();
 
-  setTimeout(function () {
-    playDictation(false);
-  }, 400);
+  if (!p.noAuto) {
+    dictationTimer = setTimeout(function () {
+      playDictation(false);
+    }, 400);
+  }
 
   return wrap;
 };

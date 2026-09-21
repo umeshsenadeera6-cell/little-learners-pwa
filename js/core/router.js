@@ -31,7 +31,7 @@ export const UI = {
       if(b.dataset.tab===tab) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current");
     });
     this.stack = [];
-    var map = {home:"home", learn:"learn", dictation:"dictation", games:"games", progress:"progress"};
+    var map = {home:"home", learn:"learn", tracing:"tracing", dictation:"dictation", games:"games", progress:"progress"};
     this.go(map[tab], null, true);
   },
 
