@@ -9,7 +9,7 @@
  * on activate and every open tab picks up the new build.
  */
 
-const CACHE_VERSION = "v1.1.0";
+const CACHE_VERSION = "v1.0.2";
 const SHELL_CACHE = "little-learners-shell-" + CACHE_VERSION;
 const FONT_CACHE  = "little-learners-fonts-" + CACHE_VERSION;
 const MEDIA_CACHE = "little-learners-media-" + CACHE_VERSION;
@@ -34,8 +34,6 @@ const SHELL = [
   "./js/core/router.js",
   "./js/core/fullscreen.js",
 
-  "./js/engine/tracingEngine.js",
-
   "./js/data/index.js",
   "./js/data/alphabet.js",
   "./js/data/numbers.js",
@@ -45,7 +43,6 @@ const SHELL = [
   "./js/data/words.js",
   "./js/data/modules.js",
   "./js/data/badges.js",
-  "./js/data/tracingData.js",
 
   "./js/features/home.js",
   "./js/features/learn.js",
@@ -61,7 +58,6 @@ const SHELL = [
   "./js/features/parent.js",
   "./js/features/settings.js",
   "./js/features/dictation.js",
-  "./js/features/tracing.js",
 
   "./js/widgets/speaker-button.js",
   "./js/widgets/progress-row.js",

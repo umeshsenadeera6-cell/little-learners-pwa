@@ -311,20 +311,3 @@
   color: var(--ink-soft);
   margin: 0;
 }
-
-/* -------------------------- TRACING STYLES ---------------------------- */
-#ll-trace-svg, #ll-freedraw-canvas {
-  touch-action: none !important;
-  user-select: none !important;
-  -webkit-user-select: none !important;
-}
-
-@keyframes startPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.7; }
-}
-
-.trace-start-pulse {
-  animation: startPulse 1.2s ease-in-out infinite;
-  transform-origin: center;
-}

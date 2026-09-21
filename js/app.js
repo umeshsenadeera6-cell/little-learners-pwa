@@ -18,7 +18,6 @@ import "./features/quiz.js";
 import "./features/games.js";
 import "./features/progress.js";
 import "./features/dictation.js";
-import "./features/tracing.js";
 import { applySettings } from "./features/settings.js";
 import { initFullscreen } from "./core/fullscreen.js";
 
@@ -32,11 +31,11 @@ import { initFullscreen } from "./core/fullscreen.js";
   UI.selectTab("home");
 
   /* Home-screen shortcuts: index.html?go=abc | numbers | colours | animals |
-     shapes | words | tracing | dictation | games | progress */
+     shapes | words | dictation | games | progress */
   try{
     var go = new URLSearchParams(location.search).get("go");
     if(go){
-      if(["home","learn","tracing","dictation","games","progress"].indexOf(go) > -1) UI.selectTab(go);
+      if(["home","learn","dictation","games","progress"].indexOf(go) > -1) UI.selectTab(go);
       else if(Routes[go]) { UI.selectTab("learn"); UI.go(go, {}); }
     }
   }catch(e){}
