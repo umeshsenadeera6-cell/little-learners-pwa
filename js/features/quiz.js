@@ -15,7 +15,7 @@ export const QuizBank = {
       var item = pick(DATA.alphabet);
       var others = sample(DATA.alphabet.filter(function(x){return x.id!==item.id;}), 2);
       var opts = shuffle([item].concat(others)).map(function(o){
-        return { html:'<span>'+o.letter+'</span>', correct:o.id===item.id, say:o.letter };
+        return { html:'<span class="letterform">'+o.letter+'</span>', correct:o.id===item.id, say:o.letter };
       });
       return { text:"Which letter starts the word "+item.word+"?",
                prompt:'<span class="qprompt">'+item.emoji+'</span>',

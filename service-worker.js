@@ -9,7 +9,7 @@
  * on activate and every open tab picks up the new build.
  */
 
-const CACHE_VERSION = "v1.0.0";
+const CACHE_VERSION = "v1.0.1";
 const SHELL_CACHE = "little-learners-shell-" + CACHE_VERSION;
 const FONT_CACHE  = "little-learners-fonts-" + CACHE_VERSION;
 const MEDIA_CACHE = "little-learners-media-" + CACHE_VERSION;

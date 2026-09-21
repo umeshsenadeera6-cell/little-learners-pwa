@@ -11,6 +11,14 @@
   --shadow-card:0 10px 0 var(--press), 0 18px 34px rgba(67,48,90,.10);
   --shadow-soft:0 6px 20px rgba(67,48,90,.10);
   --tap:64px;
+
+  /* Chrome (headings, buttons, labels) — playful. */
+  --font-display:"Baloo 2","Nunito",ui-rounded,system-ui,sans-serif;
+  --font-ui:"Nunito",ui-rounded,"Segoe UI Rounded",system-ui,sans-serif;
+  /* Anything a CHILD reads — letters, words, sentences. Every face in this
+     stack has a single-storey a and g and keeps I, l and 1 distinct. */
+  --font-letters:"Andika","Comic Neue","Century Gothic","URW Gothic","Futura",
+                 ui-rounded,"Segoe UI Rounded",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){

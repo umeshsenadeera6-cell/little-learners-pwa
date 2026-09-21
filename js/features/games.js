@@ -203,7 +203,7 @@ Routes.game_letter = function(p){
   var body = card.querySelector("#ll-body"), fb = card.querySelector("#ll-fb");
   var grid = h('<div class="opts three" style="margin-top:18px"></div>');
   shuffle([target].concat(others)).forEach(function(L){
-    var b = h('<button class="opt">'+L.letter+'</button>');
+    var b = h('<button class="opt letterform">'+L.letter+'</button>');
     b.addEventListener("click", function(){
       AudioService.say(L.letter,{rate:0.7});
       if(L.id===target.id){

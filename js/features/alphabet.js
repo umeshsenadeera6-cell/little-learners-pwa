@@ -19,7 +19,7 @@ Routes.abc = function(p){
   /* alphabet strip */
   var strip = h('<div class="strip" aria-label="Alphabet"></div>');
   DATA.alphabet.forEach(function(L, idx){
-    var c = h('<button class="chip" '+(idx===i?'aria-current="true"':'')+'>'+L.letter+
+    var c = h('<button class="chip letterform" '+(idx===i?'aria-current="true"':'')+'>'+L.letter+
       (Store.isSeen("abc",L.id)?'<span class="done">⭐</span>':'')+'</button>');
     c.addEventListener("click", function(){ AudioService.effect("tap"); UI.setParams({index:idx}); });
     strip.appendChild(c);
@@ -29,7 +29,7 @@ Routes.abc = function(p){
   /* stage */
   var card = h('<div class="stage-card">'+
       '<div class="glow" style="background:var(--sun)"></div>'+
-      '<button id="ll-letter" class="bigletter" style="color:var(--coral)" aria-label="Letter '+item.letter+'">'+item.letter+'<small>'+item.lowercase+'</small></button>'+
+      '<button id="ll-letter" class="bigletter letterform" style="color:var(--coral)" aria-label="Letter '+item.letter+'">'+item.letter+'<small>'+item.lowercase+'</small></button>'+
       '<div><button id="ll-emoji" class="bigemoji" aria-label="'+esc(item.word)+'">'+item.emoji+'</button></div>'+
       '<div class="word">'+esc(item.word)+'</div>'+
       '<div class="sentence">'+esc(item.word)+' starts with '+item.letter+'.</div>'+

@@ -107,6 +107,38 @@ single flag.
 
 ---
 
+## Letterforms
+
+Children are taught to write a single-storey **ɑ** and **ɡ**, not the
+two-storey shapes most UI fonts use. Everything a child reads — the big letter
+card, the A–Z strip, the word, the sentence, letter quiz options and the Find
+the Letter game — is set in `--font-letters` (`css/tokens.css`), not in the
+chrome font. Headings, buttons and labels keep the playful display face.
+
+The stack is Andika (SIL, designed for beginning readers: single-storey a and
+g, capital I with serifs, hooked l), then Comic Neue, then Century Gothic /
+URW Gothic / Futura, all of which are single-storey. Add the `letterform`
+class to any new element that shows a bare letter.
+
+**For guaranteed offline letterforms, bundle Andika** rather than relying on
+Google Fonts:
+
+```bash
+mkdir -p fonts
+curl -L -o fonts/Andika-Regular.woff2 \
+  "https://fonts.gstatic.com/s/andika/v25/mem_Ya6iyW-LwqgAbbwRWrwGVA.woff2"
+curl -L -o fonts/Andika-Bold.woff2 \
+  "https://fonts.gstatic.com/s/andika/v25/mem8Ya6iyW-Lwqg40ZM1UpcaXcl0Aw.woff2"
+```
+
+Then drop the Google Fonts `<link>` for Andika from `index.html`, add the
+`@font-face` rules to `css/base.css`, and list both files in the
+`SHELL` array in `service-worker.js`. (Exact file URLs change between Andika
+versions — take them from
+`https://fonts.googleapis.com/css2?family=Andika:wght@400;700` in a browser.)
+
+---
+
 ## Offline behaviour
 
 | What | Strategy | Cache |
@@ -181,4 +213,3 @@ device's installed voices — bundling recorded audio removes that variability.
 Sinhala, Tamil and Japanese are listed in Settings and wired to a `language`
 setting. Content files are language-agnostic in shape, so a second language is
 a data file plus a lookup — not a rewrite.
-# kids_app

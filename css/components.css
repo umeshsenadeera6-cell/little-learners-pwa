@@ -1,3 +1,6 @@
+/* Child-read text uses the literacy face; UI chrome stays playful. */
+.letterform{font-family:var(--font-letters) !important;letter-spacing:.01em}
+
 /* Little Learners — cards, buttons, quizzes, games, overlays */
 /* ---------- shared bits ---------- */
 .screen{animation:slideIn .32s cubic-bezier(.2,.9,.3,1.2) both}
@@ -62,11 +65,11 @@
   box-shadow:var(--shadow-card);position:relative;overflow:hidden;
 }
 .stage-card .glow{position:absolute;inset:auto -30% -55% -30%;height:200px;border-radius:50%;opacity:.35}
-.bigletter{font-family:"Baloo 2";font-weight:800;font-size:clamp(76px,24vw,128px);line-height:1;letter-spacing:-.02em}
+.bigletter{font-family:var(--font-letters);font-weight:800;font-size:clamp(76px,24vw,128px);line-height:1;letter-spacing:-.02em}
 .bigletter small{font-size:.58em;opacity:.55;margin-left:.08em}
 .bigemoji{font-size:clamp(78px,23vw,120px);line-height:1;display:inline-block;filter:drop-shadow(0 8px 10px rgba(0,0,0,.16))}
-.word{font-family:"Baloo 2";font-weight:800;font-size:clamp(28px,8vw,38px);margin-top:6px}
-.sentence{font-size:15.5px;font-weight:800;color:var(--ink-soft);margin-top:4px}
+.word{font-family:var(--font-letters);font-weight:800;font-size:clamp(28px,8vw,38px);margin-top:6px}
+.sentence{font-family:var(--font-letters);font-size:15.5px;font-weight:800;color:var(--ink-soft);margin-top:4px}
 .tap-hint{font-size:12.5px;font-weight:800;color:var(--ink-soft);opacity:.85;margin-top:10px}
 
 .speaker{
